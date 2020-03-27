@@ -5,6 +5,11 @@ import * as yup from 'yup';
 
 const orderSchema = yup.object().shape({
 pizzaSize:yup.string().required("Choose your pizza size."),
+special:yup.string(),
+pineapple:yup.boolean(),
+sausage:yup.boolean(),
+onions:yup.boolean(),
+pepperoni:yup.boolean(),
 orderName:yup.string().required('must enter a name for the order').min(2, "must put a name of at least two letters.")
 });
 
@@ -13,19 +18,23 @@ function PizzaForm(){
 const [submitDisabled, setSubmitDisabled] = useState(true);
 
 const [orderInput, setOrderInput] = useState({
-    pizzaSize:"",
+    pizzaSize:"", 
+    orderName:"",
     pineapple:"",
     sausage:"",
     onions:"",
     pepperoni:"",
-    special:"",
-    orderName:""
-
+    special:""
 }) 
 
 const [orderErr, setOrderErr] = useState({
-    pizzaSize:"",
-    orderName:""
+    pizzaSize:"", 
+    orderName:"",
+    pineapple:"",
+    sausage:"",
+    onions:"",
+    pepperoni:"",
+    special:""
 })
 
 const [pizzaOrder, setPizzaOrder] = useState([]);
@@ -80,25 +89,24 @@ const addOrder = (event) => {
     })
     .catch(err => console.log("ERROR: ", err));
 }
-
+//   
     return(
         <div>
         <h1>Build Your own Pizza</h1>
         <Link to="/" >
             <h3>Home</h3>
         </Link>
-
         <form onSubmit={addOrder} >
             <label htmlFor="PizzaSize">
                 Size for your Pizza: 
-                <select id="PizzaSize" name="PizzaSize"
+                <select id="PizzaSize" name="pizzaSize"
                 value={orderInput.pizzaSize} onChange={orderChange}>
-                    <option value="">--Select Size--</option>
+                   <option value="">--Select Size--</option>
                     <option value="sm">Small</option>
                     <option value="md">Medium</option>
                     <option value="lg">Large</option>
                 </select>
-    {orderErr.pizzaSize.length > 0 ? <p id="sizeErr">{orderErr.pizzaSize}</p> : null }
+  {orderErr.pizzaSize.length > 0 ? <p id="sizeErr">{orderErr.pizzaSize}</p> : null }
             </label>
 
             <br/>
@@ -107,19 +115,19 @@ const addOrder = (event) => {
                 Toppings (choose as many as you want!):
                 <br/>
                 <label htmlFor="pineapple">
-                    <input type="checkbox" checked={orderInput.pineapple} />
+                    <input type="checkbox" checked={orderInput.pineapple} onChange={orderChange}/>
                     Pineapple                
                 </label>
                 <label htmlFor="pepperoni">
-                    <input type="checkbox" checked={orderInput.pepperoni} />
+                    <input type="checkbox" checked={orderInput.pepperoni} onChange={orderChange}/>
                     Pepperoni                
                 </label>
                 <label htmlFor="sausage">
-                    <input type="checkbox" checked={orderInput.sausage} />
+                    <input type="checkbox" checked={orderInput.sausage} onChange={orderChange}/>
                     Sausage                
                 </label>
                 <label htmlFor="onions">
-                    <input type="checkbox" checked={orderInput.onions} />
+                    <input type="checkbox" checked={orderInput.onions} onChange={orderChange}/>
                     Onions                
                 </label>
 
