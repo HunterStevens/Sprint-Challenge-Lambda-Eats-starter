@@ -5,7 +5,7 @@ import * as yup from 'yup';
 
 const orderSchema = yup.object().shape({
 pizzaSize:yup.string().required("Choose your pizza size."),
-orderName:yup.string().min(2, "must put a name of at least two letters.")
+orderName:yup.string().required('must enter a name for the order').min(2, "must put a name of at least two letters.")
 });
 
 function PizzaForm(){
@@ -44,7 +44,8 @@ const orderChange = (event) =>{
 }
 
 const validateOrder = (event) => {
-    yup.reach(orderSchema, event.target.name)
+    yup
+    .reach(orderSchema, event.target.name)
     .validate(event.target.value)
     .then(good =>{
         setOrderErr({
@@ -75,7 +76,7 @@ const addOrder = (event) => {
             <label htmlFor="PizzaSize">
                 Size for your Pizza: 
                 <select id="PizzaSize" name="PizzaSize"
-                value={orderInput.pizzaSize} onChange={orderChange} >
+                value={orderInput.pizzaSize} onChange={orderChange}>
                     <option value="">--Select Size--</option>
                     <option value="sm">Small</option>
                     <option value="md">Medium</option>
