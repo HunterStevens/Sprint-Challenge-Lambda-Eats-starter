@@ -14,7 +14,10 @@ const [submitDisabled, setSubmitDisabled] = useState(true);
 
 const [orderInput, setOrderInput] = useState({
     pizzaSize:"",
-    toppings:"",
+    pineapple:"",
+    sausage:"",
+    onions:"",
+    pepperoni:"",
     special:"",
     orderName:""
 
@@ -36,7 +39,10 @@ useEffect(() => {
 
 const orderChange = (event) =>{
     event.persist();
-    const newOrder ={...orderInput};
+    const newOrder ={...orderInput,
+    [event.target.name]:
+    event.target.type === "checkbox" ? event.target.checked : event.target.value
+    };
 
     validateOrder(event);
     setOrderInput(newOrder);
@@ -63,6 +69,16 @@ const validateOrder = (event) => {
 
 const addOrder = (event) => {
     event.preventDefault();
+    axios.post("https://reqres.in/api/users", orderInput)
+    .then(res =>{
+        console.log('New Pizza: ', res);
+        setPizzaOrder([
+            ...pizzaOrder,
+            res.data
+        ])
+        console.log("Current list of pizza's", pizzaOrder);
+    })
+    .catch(err => console.log("ERROR: ", err));
 }
 
     return(
@@ -91,19 +107,19 @@ const addOrder = (event) => {
                 Toppings (choose as many as you want!):
                 <br/>
                 <label htmlFor="pineapple">
-                    <input type="checkbox" value="pineapple" />
+                    <input type="checkbox" checked={orderInput.pineapple} />
                     Pineapple                
                 </label>
                 <label htmlFor="pepperoni">
-                    <input type="checkbox" value="pepperoni" />
+                    <input type="checkbox" checked={orderInput.pepperoni} />
                     Pepperoni                
                 </label>
                 <label htmlFor="sausage">
-                    <input type="checkbox" value="sausage" />
+                    <input type="checkbox" checked={orderInput.sausage} />
                     Sausage                
                 </label>
                 <label htmlFor="onions">
-                    <input type="checkbox" value="onions" />
+                    <input type="checkbox" checked={orderInput.onions} />
                     Onions                
                 </label>
 
@@ -114,14 +130,14 @@ const addOrder = (event) => {
             <label htmlFor="special">
                 Special Instructions:
                 <textarea id="special" name="special"
-                value={orderInput.orderName} onChange={orderChange}/>
+                value={orderInput.special} onChange={orderChange}/>
             </label>
 
             <br/>
 
             <label htmlFor="orderName">
                 Name for the Order:
-                <input type="text" name="orderName" id="orderName" 
+                <input  name="orderName" id="orderName" type="text" 
                 value={orderInput.orderName} onChange={orderChange}/>
                 {orderErr.orderName.length > 0 ? <p id="sizeErr">{orderErr.orderName}</p> : null }
             </label>
