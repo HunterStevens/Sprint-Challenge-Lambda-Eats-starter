@@ -6,7 +6,7 @@ function Home(){
     return(
         <div>
             <Link to={'/Pizza'}>
-                <button>Make your order!</button>
+                <button id="makeOrder">Make your order!</button>
             </Link>
         </div>
     )

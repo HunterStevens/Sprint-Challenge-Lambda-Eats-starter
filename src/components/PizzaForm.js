@@ -115,19 +115,19 @@ const addOrder = (event) => {
                 Toppings (choose as many as you want!):
                 <br/>
                 <label htmlFor="pineapple">
-                    <input type="checkbox" checked={orderInput.pineapple} onChange={orderChange}/>
+                    <input type="checkbox" id="pineapple" name="pineapple" checked={orderInput.pineapple} onChange={orderChange}/>
                     Pineapple                
                 </label>
                 <label htmlFor="pepperoni">
-                    <input type="checkbox" checked={orderInput.pepperoni} onChange={orderChange}/>
+                    <input type="checkbox" id="pepperoni" name="pepperoni" checked={orderInput.pepperoni} onChange={orderChange}/>
                     Pepperoni                
                 </label>
                 <label htmlFor="sausage">
-                    <input type="checkbox" checked={orderInput.sausage} onChange={orderChange}/>
+                    <input type="checkbox" id="sausage" name="sausage" checked={orderInput.sausage} onChange={orderChange}/>
                     Sausage                
                 </label>
                 <label htmlFor="onions">
-                    <input type="checkbox" checked={orderInput.onions} onChange={orderChange}/>
+                    <input type="checkbox" id="onions" name="onions" checked={orderInput.onions} onChange={orderChange}/>
                     Onions                
                 </label>
 
@@ -147,16 +147,18 @@ const addOrder = (event) => {
                 Name for the Order:
                 <input  name="orderName" id="orderName" type="text" 
                 value={orderInput.orderName} onChange={orderChange}/>
-                {orderErr.orderName.length > 0 ? <p id="sizeErr">{orderErr.orderName}</p> : null }
+                {orderErr.orderName.length > 0 ? <p id="nameErr">{orderErr.orderName}</p> : null }
             </label>
 
             <br/>
 
-            <label htmlFor = "Add to Order">
+            <label htmlFor = "addOrder">
                 Add to order:
-                <input type="submit" disabled={submitDisabled}/>
+                <input name="addOrder" type="submit"  disabled={submitDisabled}/>
             </label>
         </form>
+
+        <pre> {JSON.stringify(pizzaOrder, null)} </pre>
         </div>
     )
 }
