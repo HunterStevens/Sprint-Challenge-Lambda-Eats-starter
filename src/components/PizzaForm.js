@@ -1,15 +1,23 @@
 import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 
 
 
 function PizzaForm(){
+
+const [submitDisabled, setSubmitDisabled] = useState(true);
 
 const addOrder = (event) => {
     event.preventDefault();
 }
 
     return(
+        <div>
         <h1>Build Your own Pizza</h1>
+        <Link to="/" >
+            <h3>Home</h3>
+        </Link>
+
         <form onSubmit={addOrder} >
             <label htmlFor="PizzaSize">
                 Size for your Pizza: 
@@ -19,6 +27,8 @@ const addOrder = (event) => {
                     <option value="lg">Large</option>
                 </select>
             </label>
+
+            <br/>
 
             <label htmlFor="toppings">
                 Toppings (choose as many as you want!):
@@ -42,21 +52,28 @@ const addOrder = (event) => {
 
             </label>
 
+            <br/>
+
             <label htmlFor="special">
                 Special Instructions:
-                <input type="textarea" id="special" name="special"/>
+                <textarea id="special" name="special"/>
             </label>
+
+            <br/>
 
             <label htmlFor="orderName">
                 Name for the Order:
                 <input type="text" name="orderName" id="orderName" />
             </label>
 
+            <br/>
+
             <label htmlFor = "Add to Order">
                 Add to order:
                 <input type="submit" disabled={submitDisabled}/>
             </label>
         </form>
+        </div>
     )
 }
 export default PizzaForm; 
