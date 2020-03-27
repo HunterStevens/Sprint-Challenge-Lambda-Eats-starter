@@ -6,10 +6,10 @@ import * as yup from 'yup';
 const orderSchema = yup.object().shape({
 pizzaSize:yup.string().required("Choose your pizza size."),
 special:yup.string(),
-pineapple:yup.boolean(),
-sausage:yup.boolean(),
-onions:yup.boolean(),
-pepperoni:yup.boolean(),
+// pineapple:yup.boolean(),
+// sausage:yup.boolean(),
+// onions:yup.boolean(),
+// pepperoni:yup.boolean(),
 orderName:yup.string().required('must enter a name for the order').min(2, "must put a name of at least two letters.")
 });
 
@@ -30,10 +30,10 @@ const [orderInput, setOrderInput] = useState({
 const [orderErr, setOrderErr] = useState({
     pizzaSize:"", 
     orderName:"",
-    pineapple:"",
-    sausage:"",
-    onions:"",
-    pepperoni:"",
+    // pineapple:"",
+    // sausage:"",
+    // onions:"",
+    // pepperoni:"",
     special:""
 })
 
@@ -54,6 +54,15 @@ const orderChange = (event) =>{
     };
 
     validateOrder(event);
+    setOrderInput(newOrder);
+
+}
+
+const checkboxChange = (event) =>{
+    event.persist();
+    const newOrder ={...orderInput,
+    [event.target.name]:event.target.checked
+    };
     setOrderInput(newOrder);
 
 }
@@ -115,19 +124,19 @@ const addOrder = (event) => {
                 Toppings (choose as many as you want!):
                 <br/>
                 <label htmlFor="pineapple">
-                    <input type="checkbox" id="pineapple" name="pineapple" checked={orderInput.pineapple} onChange={orderChange}/>
+                    <input type="checkbox" id="pineapple" name="pineapple" checked={orderInput.pineapple} onChange={checkboxChange}/>
                     Pineapple                
                 </label>
                 <label htmlFor="pepperoni">
-                    <input type="checkbox" id="pepperoni" name="pepperoni" checked={orderInput.pepperoni} onChange={orderChange}/>
+                    <input type="checkbox" id="pepperoni" name="pepperoni" checked={orderInput.pepperoni} onChange={checkboxChange}/>
                     Pepperoni                
                 </label>
                 <label htmlFor="sausage">
-                    <input type="checkbox" id="sausage" name="sausage" checked={orderInput.sausage} onChange={orderChange}/>
+                    <input type="checkbox" id="sausage" name="sausage" checked={orderInput.sausage} onChange={checkboxChange}/>
                     Sausage                
                 </label>
                 <label htmlFor="onions">
-                    <input type="checkbox" id="onions" name="onions" checked={orderInput.onions} onChange={orderChange}/>
+                    <input type="checkbox" id="onions" name="onions" checked={orderInput.onions} onChange={checkboxChange}/>
                     Onions                
                 </label>
 
